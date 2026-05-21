@@ -11,24 +11,19 @@ import customtkinter as ctk
 from app.gui.windows.main_window import MainWindow
 
 
-# -------------------------------------------------------------------
-# Global application styling
-# -------------------------------------------------------------------
+def main() -> None:
+    """
+    Configure global CustomTkinter settings and start the application.
 
-# Set the application appearance mode.
-# Options: "light", "dark", "system"
-ctk.set_appearance_mode("dark")
+    Keeping startup logic inside main() prevents the GUI from launching
+    automatically if this file is imported by another module or test.
+    """
+    ctk.set_appearance_mode("dark")
+    ctk.set_default_color_theme("dark-blue")
 
-# Set the default widget color theme.
-# Available built-in themes include:
-# "blue", "green", and "dark-blue"
-ctk.set_default_color_theme("dark-blue")
+    app = MainWindow()
+    app.mainloop()
 
 
-# -------------------------------------------------------------------
-# Application startup
-# -------------------------------------------------------------------
-
-# Create and start the main application window.
-app = MainWindow()
-app.mainloop()
+if __name__ == "__main__":
+    main()

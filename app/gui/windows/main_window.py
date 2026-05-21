@@ -5,6 +5,7 @@ Defines the primary desktop window and arranges the major
 application layout regions: topbar, sidebar, main content, and log.
 """
 
+import tkinter as tk
 import customtkinter as ctk
 
 from app.gui.components.topbar import Topbar
@@ -25,7 +26,25 @@ class MainWindow(ctk.CTk):
         self.geometry("1200x800")
 
         # Set the title displayed in the window header.
-        self.title("")
+        self.title("Patient Trust Manager")
+
+        # Create the application menu bar.
+        self.menu_bar = tk.Menu(self)
+
+        # Create the File menu.
+        file_menu = tk.Menu(self.menu_bar, tearoff=0)
+        file_menu.add_command(label="Exit", command=self.quit)
+
+        # Create the Help menu.
+        help_menu = tk.Menu(self.menu_bar, tearoff=0)
+        help_menu.add_command(label="About", command=lambda: print("Patient Trust Manager"))
+
+        # Add menus to the menu bar.
+        self.menu_bar.add_cascade(label="File", menu=file_menu)
+        self.menu_bar.add_cascade(label="Help", menu=help_menu)
+
+        # Attach the menu bar to the application window.
+        self.config(menu=self.menu_bar)
 
         # Create the main components of the application.
         self.topbar = Topbar(self)
