@@ -63,7 +63,7 @@ class MainWindow(ctk.CTk):
         self.sidebar.pack_propagate(False)
         self.activity_log.pack_propagate(False)
         
-        # Log a test message to the activity log.
+        # Log application startup to the activity log.
         self.activity_log.log_message("Application started")
 
         # Load the default page into the main content area.
