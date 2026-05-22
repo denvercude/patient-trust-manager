@@ -30,10 +30,10 @@ class ActivityLog(ctk.CTkFrame):
         """
 
         timestamp = datetime.now().strftime("%I:%M:%S %p")
-        log_message = f"[{timestamp}] {message}"
+        log_entry = f"[{timestamp}] {message}"
 
         self.text_area.configure(state="normal")
-        self.text_area.insert("end", log_message + "\n")
+        self.text_area.insert("end", log_entry + "\n")
         self.text_area.configure(state="disabled")
         self.text_area.see("end")
 
