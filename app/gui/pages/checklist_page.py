@@ -1,11 +1,13 @@
 """
 Checklist page.
 
-Displays the default home view for the daily workflow checklist.
+Default home view for the daily client-trust workflow.
 """
 
 import customtkinter as ctk
 
+MIN_COLUMN_WIDTH = 430
+MAX_COLUMNS = 3
 
 CHECKLIST_SECTIONS = (
     (
@@ -94,10 +96,6 @@ CHECKLIST_SECTIONS = (
 
 
 class ChecklistPage(ctk.CTkScrollableFrame):
-    """
-    Main dashboard page for the daily workflow checklist.
-    """
-
     def __init__(self, parent):
         super().__init__(
             parent,
@@ -122,7 +120,6 @@ class ChecklistPage(ctk.CTkScrollableFrame):
         )
 
         self._section_frames = []
-        self._checkboxes = []
         self._last_layout_width = 0
 
         self.sections_container.bind(
@@ -133,7 +130,7 @@ class ChecklistPage(ctk.CTkScrollableFrame):
         for section_title, section_items in CHECKLIST_SECTIONS:
             self._add_section(section_title, section_items)
 
-        self._layout_sections()
+        self.after_idle(self._layout_sections)
 
     def _add_section(self, title, items):
         section_frame = ctk.CTkFrame(
@@ -158,8 +155,6 @@ class ChecklistPage(ctk.CTkScrollableFrame):
                 pady=4,
             )
 
-            self._checkboxes.append(check_box)
-
         self._section_frames.append(section_frame)
 
     def _layout_sections(self):
@@ -171,10 +166,9 @@ class ChecklistPage(ctk.CTkScrollableFrame):
         for frame in self._section_frames:
             frame.grid_forget()
 
-        min_column_width = 430
-        cols = min(3, max(1, width // min_column_width))
+        cols = min(MAX_COLUMNS, max(1, width // MIN_COLUMN_WIDTH))
 
-        for c in range(4):
+        for c in range(MAX_COLUMNS + 1):
             self.sections_container.grid_columnconfigure(
                 c,
                 weight=0,
@@ -199,11 +193,6 @@ class ChecklistPage(ctk.CTkScrollableFrame):
                 padx=8,
                 pady=8,
             )
-
-        wrap = max(180, (width // cols) - 80)
-
-        for checkbox in self._checkboxes:
-            checkbox.configure(wraplength=wrap)
 
     def _on_container_resize(self, event):
         if event.width == self._last_layout_width:
