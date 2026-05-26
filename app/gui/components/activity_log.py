@@ -1,12 +1,8 @@
-"""
-Activity log component.
-
-Displays workflow messages, status updates, and future script output
-at the bottom of the application window.
-"""
+from datetime import datetime
 
 import customtkinter as ctk
-from datetime import datetime
+
+from app.gui.theme import COLOR_BG_LOG, COLOR_BG_MAIN, TEXT_MUTED
 
 
 class ActivityLog(ctk.CTkFrame):
@@ -15,15 +11,17 @@ class ActivityLog(ctk.CTkFrame):
     """
 
     def __init__(self, parent):
-        super().__init__(parent, height=130, fg_color="#0a0f1a")
+        super().__init__(parent, height=130, fg_color=COLOR_BG_LOG)
 
         self.text_area = ctk.CTkTextbox(
             self,
             wrap="word",
             state="disabled",
+            fg_color=COLOR_BG_MAIN,
+            text_color=TEXT_MUTED,
         )
         self.text_area.pack(fill="both", expand=True, padx=10, pady=10)
-    
+
     def log_message(self, message: str) -> None:
         """
         Add a timestamped message to the activity log.
@@ -36,5 +34,3 @@ class ActivityLog(ctk.CTkFrame):
         self.text_area.insert("end", log_entry + "\n")
         self.text_area.configure(state="disabled")
         self.text_area.see("end")
-
-

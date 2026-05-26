@@ -12,6 +12,7 @@ from app.gui.components.topbar import Topbar
 from app.gui.components.sidebar import Sidebar
 from app.gui.components.activity_log import ActivityLog
 from app.gui.pages.checklist_page import ChecklistPage
+from app.gui.theme import COLOR_BG_MAIN
 
 
 class MainWindow(ctk.CTk):
@@ -49,7 +50,7 @@ class MainWindow(ctk.CTk):
         # Create the main components of the application.
         self.topbar = Topbar(self)
         self.sidebar = Sidebar(self)
-        self.main_content = ctk.CTkFrame(self, fg_color="#1a1d24")
+        self.main_content = ctk.CTkFrame(self, fg_color=COLOR_BG_MAIN)
         self.activity_log = ActivityLog(self)
 
         # Pack the components into the application window.

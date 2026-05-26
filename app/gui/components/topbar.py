@@ -6,6 +6,7 @@ indicators for Access, Excel, and required file paths.
 """
 
 import customtkinter as ctk
+from app.gui.theme import COLOR_BG_TOP
 
 
 class Topbar(ctk.CTkFrame):
@@ -14,7 +15,7 @@ class Topbar(ctk.CTkFrame):
     """
 
     def __init__(self, parent):
-        super().__init__(parent, height=70, fg_color="#0b1220")
+        super().__init__(parent, height=70, fg_color=COLOR_BG_TOP)
 
         # Add the application title to the topbar.
         ctk.CTkLabel(
