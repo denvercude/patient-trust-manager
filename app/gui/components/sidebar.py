@@ -13,7 +13,7 @@ class Sidebar(ctk.CTkFrame):
     """
 
     def __init__(self, parent):
-        super().__init__(parent, width=220, fg_color=COLOR_BG_SIDE)
+        super().__init__(parent, width=500, fg_color=COLOR_BG_SIDE)
 
         # Add a temporary section heading to the sidebar.
         ctk.CTkLabel(
