@@ -4,14 +4,12 @@ Application theme colors.
 Centralized color system for the Patient Trust Manager UI.
 """
 
-
 # =========================================================
 # MAIN LAYOUT BACKGROUNDS
 # =========================================================
 
 COLOR_BG_MAIN = "#0A1931"       # Main application background
 COLOR_BG_SURFACE = "#09162A"    # Inner content surfaces
-
 COLOR_BG_SIDE = "#0F223E"       # Sidebar background
 COLOR_BG_TOP = "#09162A"        # Top navigation bar
 COLOR_BG_LOG = "#0A0F1A"        # Activity log panel
