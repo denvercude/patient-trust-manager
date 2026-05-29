@@ -12,6 +12,7 @@ from app.gui.components.topbar import Topbar
 from app.gui.components.sidebar import Sidebar
 from app.gui.components.activity_log import ActivityLog
 from app.gui.pages.checklist_page import ChecklistPage
+from app.gui.pages.ins_and_outs_page import InsAndOutsPage
 from app.gui.theme import COLOR_BG_MAIN
 
 
@@ -49,15 +50,18 @@ class MainWindow(ctk.CTk):
 
         # Create the main components of the application.
         self.topbar = Topbar(self)
-        self.sidebar = Sidebar(self)
+        self.sidebar = Sidebar(self, self.show_page)
         self.main_content = ctk.CTkFrame(self, fg_color=COLOR_BG_MAIN)
         self.activity_log = ActivityLog(self)
+
+        # Track the current page.
+        self.current_page = None
 
         # Pack the components into the application window.
         self.topbar.pack(side="top", fill="x")
         self.activity_log.pack(side="bottom", fill="x")
         self.sidebar.pack(side="left", fill="y")
-        self.main_content.pack(side="right", fill="both", expand=True)
+        self.main_content.pack(side="left", fill="both", expand=True)
 
         # Prevent fixed-size components from changing size based on content.
         self.topbar.pack_propagate(False)
@@ -67,6 +71,25 @@ class MainWindow(ctk.CTk):
         # Log application startup to the activity log.
         self.activity_log.log_message("Application started")
 
-        # Load the default page into the main content area.
-        self.checklist_page = ChecklistPage(self.main_content)
-        self.checklist_page.pack(fill="both", expand=True)
+        self.show_page("workflow")
+    
+    def show_page(self, page_name):
+        """
+        Load the selected page into the main content area.
+        Ignore the request if the selected page is already active.
+        """
+
+        if self.current_page == page_name:
+            return
+
+        self.current_page = page_name
+
+        for widget in self.main_content.winfo_children():
+            widget.destroy()
+
+        if page_name == "workflow":
+            page = ChecklistPage(self.main_content)
+            page.pack(fill="both", expand=True)
+        elif page_name == "ins_and_outs":
+            page = InsAndOutsPage(self.main_content)
+            page.pack(fill="both", expand=True)
